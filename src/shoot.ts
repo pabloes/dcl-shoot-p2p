@@ -1,16 +1,22 @@
-import utils from "../node_modules/decentraland-ecs-utils/index"
-
 const bulletTexture = new Texture("shooter/textures/bullet_hole.png", {hasAlpha: true})
 const bulletSound = new AudioClip("shooter/sounds/bullet_shoot.mp3");
 const bulletAudioSource = new AudioSource(bulletSound)
 
-const planeShape = new PlaneShape();
-const planeMaterial = new Material();
+const planeShape = new PlaneShape()
+const planeMaterial = new Material()
+const shootSoundEntity = new Entity()
+shootSoundEntity.addComponent(bulletAudioSource)
+engine.addEntity(shootSoundEntity);
 
-planeMaterial.transparencyMode = TransparencyMode.ALPHA_BLEND;
+planeMaterial.transparencyMode = TransparencyMode.ALPHA_BLEND
 planeMaterial.albedoTexture = bulletTexture;
 
 const sceneMessageBus = new MessageBus();
+
+/// --- Define a custom type to pass in messages ---
+type BulletHolePosition = {
+  position: ReadOnlyVector3;
+};
 
 // Instance the input object
 const input = Input.instance
@@ -19,16 +25,15 @@ const input = Input.instance
 input.subscribe("BUTTON_DOWN", ActionButton.POINTER, true, e => {
   //log("pointer Down", e)
   if(e.hit && e.hit.entityId){
-    log("we clicked a wall, need to show bullet hole")
-    sceneMessageBus.emit("shot", {data: e.hit.hitPoint})
+    //log("we clicked a wall, need to show bullet hole")
+    //showBulletHole(e.hit.hitPoint)
+    sceneMessageBus.emit("shot", {position: e.hit.hitPoint})
   }
 })
 
 function showBulletHole(position)
 {
   let plane = new Entity()
-
-
   plane.addComponent(planeShape)
   plane.addComponent(planeMaterial) 
   plane.addComponent(new Transform({
@@ -36,20 +41,11 @@ function showBulletHole(position)
   }));
   engine.addEntity(plane);
 
-  let shootSoundEntity = new Entity();
-  shootSoundEntity.addComponent(new Transform({position:Camera.instance.position}));
-  shootSoundEntity.addComponent(bulletAudioSource);
-  engine.addEntity(shootSoundEntity);
-  bulletAudioSource.playOnce();
-  shootSoundEntity.addComponent(new utils.Delay(1000,()=>{
-    engine.removeEntity(shootSoundEntity)
-  }))
-
-  sceneMessageBus.on("shot", (data)=>{
-    //log("received bullet shot message")
-    showBulletHole(data)
-  })
-
-
+  shootSoundEntity.addComponentOrReplace(new Transform({position:Camera.instance.position}));
+  bulletAudioSource.playOnce()
 }
 
+sceneMessageBus.on("shot", (data)=>{
+  //log("received bullet shot message")
+  showBulletHole(data.position)
+})
