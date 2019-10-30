@@ -31,11 +31,7 @@ input.subscribe("BUTTON_DOWN", ActionButton.POINTER, true, e => {
     sceneMessageBus.emit("shot", {position: e.hit.hitPoint, normal: e.hit.normal})
   }
 })
-function radians_to_degrees(radians)
-{
-  var pi = Math.PI;
-  return radians * (180/pi);
-}
+
 function showBulletHole(position:Vector3, normal:Vector3)
 {
   const plane = new Entity()
