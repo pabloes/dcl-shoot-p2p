@@ -23,6 +23,8 @@ export default class ShootSystem {
         planeMaterial.transparencyMode = TransparencyMode.ALPHA_BLEND;
         const myTexture = new Texture("modules/shoot/texture/bullet_hole_fjewoij90f32.png", {hasAlpha: true})
         planeMaterial.albedoTexture = myTexture;
+
+
         Input.instance.subscribe("BUTTON_DOWN", ActionButton.POINTER, true, (e) => {
             log(e);
             audioSource.playOnce();
@@ -32,7 +34,7 @@ export default class ShootSystem {
                 plane.addComponent(planeShape);
                 plane.addComponent(planeMaterial);
                 plane.addComponent(new Transform({
-                    position:new Vector3(e.hit.hitPoint.x, e.hit.hitPoint.y, e.hit.hitPoint.z-0.001)
+                    position:new Vector3(e.hit.hitPoint.x, e.hit.hitPoint.y, e.hit.hitPoint.z)
                 }));
                 engine.addEntity(plane);
 

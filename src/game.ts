@@ -10,3 +10,12 @@ wall.addComponent(new BoxShape());
 engine.addEntity(wall);
 engine.addSystem(new ShootSystem());
 
+
+const train = new Entity();
+const trainShape = new GLTFShape("models/train.glb");
+train.addComponent(trainShape);
+train.addComponent(new Transform({
+  position:new Vector3(30, 0.2, 20)
+}))
+
+engine.addEntity(train);
