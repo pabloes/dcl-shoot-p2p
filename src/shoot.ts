@@ -31,21 +31,29 @@ input.subscribe("BUTTON_DOWN", ActionButton.POINTER, true, e => {
     sceneMessageBus.emit("shot", {position: e.hit.hitPoint, normal: e.hit.normal})
   }
 })
-
-function showBulletHole(position, normal)
+function radians_to_degrees(radians)
+{
+  var pi = Math.PI;
+  return radians * (180/pi);
+}
+function showBulletHole(position:Vector3, normal:Vector3)
 {
   const plane = new Entity()
   plane.addComponent(planeShape)
   plane.addComponent(planeMaterial);
-
+log(JSON.stringify(normal, null, "  "));
+const normalVector = new Vector3(normal.x, normal.y, normal.z);
+const rotation = Quaternion.FromToRotation(Vector3.Forward(), normalVector);
+log(rotation);
   plane.addComponent(new Transform({
       position:new Vector3(position.x+normal.x/100, position.y+normal.x/100, position.z+normal.z/100),
-      rotation:Quaternion.Euler(normal.y*100, normal.x*100, normal.z*100),
-      scale:new Vector3(0.4,0.4,0.4)
+      rotation,
+      scale:new Vector3(0.6,0.6,0.6)
   }));
   engine.addEntity(plane);
 
   shootSoundEntity.addComponentOrReplace(new Transform({position:Camera.instance.position}));
+
   bulletAudioSource.playOnce()
 }
 
