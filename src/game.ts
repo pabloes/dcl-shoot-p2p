@@ -8,7 +8,10 @@ wall.addComponent(new Transform({
   position:new Vector3(8,4,8),
   scale:new Vector3(8,8,1)
 }));
+const wallMat = new Material();
+wallMat.albedoColor = new Color3(0.5,0.5,0.5)
 wall.addComponent(new BoxShape());
+wall.addComponent(wallMat);
 wall.setParent(scene)
 engine.addEntity(wall);
 
