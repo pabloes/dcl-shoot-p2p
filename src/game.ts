@@ -10,9 +10,10 @@ wall.addComponent(new Transform({
 }));
 wall.addComponent(new BoxShape());
 wall.setParent(scene)
-engine.addEntity(wall)
+engine.addEntity(wall);
 
 
+/*
 const train = new Entity();
 const trainShape = new GLTFShape("models/train.glb");
 train.addComponent(trainShape);
@@ -20,4 +21,4 @@ train.addComponent(new Transform({
   position:new Vector3(30, 0.2, 20)
 }))
 
-engine.addEntity(train);
+engine.addEntity(train);*/
