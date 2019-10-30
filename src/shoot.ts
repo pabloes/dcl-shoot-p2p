@@ -2,7 +2,8 @@ const bulletTexture = new Texture("shooter/textures/bullet_hole.png", {hasAlpha:
 const bulletSound = new AudioClip("shooter/sounds/bullet_shoot.mp3");
 const bulletAudioSource = new AudioSource(bulletSound)
 
-const planeShape = new PlaneShape()
+const planeShape = new PlaneShape();
+planeShape.withCollisions = false;
 const planeMaterial = new Material()
 const shootSoundEntity = new Entity()
 shootSoundEntity.addComponent(bulletAudioSource)
@@ -27,17 +28,20 @@ input.subscribe("BUTTON_DOWN", ActionButton.POINTER, true, e => {
   if(e.hit && e.hit.entityId){
     //log("we clicked a wall, need to show bullet hole")
     //showBulletHole(e.hit.hitPoint)
-    sceneMessageBus.emit("shot", {position: e.hit.hitPoint})
+    sceneMessageBus.emit("shot", {position: e.hit.hitPoint, normal: e.hit.normal})
   }
 })
 
-function showBulletHole(position)
+function showBulletHole(position, normal)
 {
-  let plane = new Entity()
+  const plane = new Entity()
   plane.addComponent(planeShape)
-  plane.addComponent(planeMaterial) 
+  plane.addComponent(planeMaterial);
+
   plane.addComponent(new Transform({
-      position:new Vector3(position.x, position.y, position.z-0.001)
+      position:new Vector3(position.x+normal.x/100, position.y+normal.x/100, position.z+normal.z/100),
+      rotation:Quaternion.Euler(normal.y*100, normal.x*100, normal.z*100),
+      scale:new Vector3(0.4,0.4,0.4)
   }));
   engine.addEntity(plane);
 
@@ -47,5 +51,5 @@ function showBulletHole(position)
 
 sceneMessageBus.on("shot", (data)=>{
   //log("received bullet shot message")
-  showBulletHole(data.position)
+  showBulletHole(data.position, data.normal);
 })

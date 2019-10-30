@@ -60,3 +60,6 @@ x
 
 # next.js build output
 .next
+.idea
+bin
+bin/game.js
