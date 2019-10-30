@@ -1,4 +1,7 @@
-import ShootSystem from '../modules/shoot/shoot';
+
+const scene = new Entity()
+scene.addComponent(new Transform({ position: new Vector3(0, 0, 0), rotation: Quaternion.Euler(0, 0, 0), scale: new Vector3(1, 1, 1) }))
+engine.addEntity(scene)
 
 const wall = new Entity();
 wall.addComponent(new Transform({
@@ -6,9 +9,8 @@ wall.addComponent(new Transform({
   scale:new Vector3(8,8,1)
 }));
 wall.addComponent(new BoxShape());
-
-engine.addEntity(wall);
-engine.addSystem(new ShootSystem());
+wall.setParent(scene)
+engine.addEntity(wall)
 
 
 const train = new Entity();
