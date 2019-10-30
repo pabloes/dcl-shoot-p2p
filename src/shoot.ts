@@ -44,7 +44,7 @@ log(rotation);
   plane.addComponent(new Transform({
       position:new Vector3(position.x+normal.x/100, position.y+normal.x/100, position.z+normal.z/100),
       rotation,
-      scale:new Vector3(0.6,0.6,0.6)
+      scale:new Vector3(0.4,0.4,0.4)
   }));
   engine.addEntity(plane);
 

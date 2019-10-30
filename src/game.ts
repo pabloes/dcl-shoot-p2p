@@ -26,12 +26,19 @@ wall2.addComponent(new Transform({
   rotation:Quaternion.Euler(-20,20,60)
 }));
 engine.addEntity(wall2);
-/*
-const train = new Entity();
+const model = new Entity();
+const doorShape = new GLTFShape( "models/BonesSkull_01.glb");
+model.addComponent(doorShape);
+model.addComponent(new Transform({
+  position:new Vector3(7, 0, 9),
+  scale:new Vector3(5,5,5)
+}));
+engine.addEntity(model);
+/*const train = new Entity();
 const trainShape = new GLTFShape("models/train.glb");
 train.addComponent(trainShape);
 train.addComponent(new Transform({
-  position:new Vector3(30, 0.2, 20)
+  position:new Vector3(10, 0.2, 7)
 }))
 
 engine.addEntity(train);*/
