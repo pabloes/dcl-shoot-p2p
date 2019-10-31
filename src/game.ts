@@ -19,19 +19,20 @@ engine.addEntity(wall);
 
 const wall2 = new Entity();
 wall2.addComponent(new BoxShape());
-wall2.addComponent(wallMat);
+//wall2.addComponent(wallMat);
 wall2.addComponent(new Transform({
   position:new Vector3(8,0,3),
   scale:new Vector3(3,2,1),
   rotation:Quaternion.Euler(-20,20,60)
 }));
 engine.addEntity(wall2);
+
 const model = new Entity();
-const doorShape = new GLTFShape( "models/BonesSkull_01.glb");
+const doorShape = new GLTFShape( "models/Door_01.glb");
 model.addComponent(doorShape);
 model.addComponent(new Transform({
-  position:new Vector3(7, 0, 9),
-  scale:new Vector3(5,5,5)
+  position:new Vector3(3, 0, 9),
+  scale:new Vector3(2,2,2)
 }));
 engine.addEntity(model);
 /*const train = new Entity();

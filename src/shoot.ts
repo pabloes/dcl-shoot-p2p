@@ -13,6 +13,7 @@ planeMaterial.transparencyMode = TransparencyMode.ALPHA_BLEND
 planeMaterial.albedoTexture = bulletTexture;
 planeMaterial.roughness= 1;
 planeMaterial.metallic = 0;
+planeMaterial.disableLighting = true;
 const sceneMessageBus = new MessageBus();
 
 /// --- Define a custom type to pass in messages ---
