@@ -1,4 +1,4 @@
-const bulletTexture = new Texture("shooter/textures/bullet_hole.png", {hasAlpha: true})
+const bulletTexture = new Texture("shooter/textures/bullet_hole_small.png", {hasAlpha: true, samplingMode:2})
 const bulletSound = new AudioClip("shooter/sounds/bullet_shoot.mp3");
 const bulletAudioSource = new AudioSource(bulletSound)
 
@@ -11,7 +11,8 @@ engine.addEntity(shootSoundEntity);
 
 planeMaterial.transparencyMode = TransparencyMode.ALPHA_BLEND
 planeMaterial.albedoTexture = bulletTexture;
-
+planeMaterial.roughness= 1;
+planeMaterial.metallic = 0;
 const sceneMessageBus = new MessageBus();
 
 /// --- Define a custom type to pass in messages ---
@@ -44,7 +45,7 @@ log(rotation);
   plane.addComponent(new Transform({
       position:new Vector3(position.x+normal.x/100, position.y+normal.x/100, position.z+normal.z/100),
       rotation,
-      scale:new Vector3(0.4,0.4,0.4)
+      scale:new Vector3(0.1,0.1,0.1)
   }));
   engine.addEntity(plane);
 
